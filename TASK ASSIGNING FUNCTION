@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+struct Task 
+{
+    int number;
+    char description[100];
+};
+struct Soldier 
+{
+    char name[50];
+    int rank;
+    struct Task *tasks;
+    int numTasks;
+};
+void provideTasks(struct Soldier soldier) 
+{
+	int i;
+    printf("Welcome, %s!\n", soldier.name);
+    printf("Your rank is %d. Here are your tasks:\n", soldier.rank);
+    for (i = 0; i < soldier.numTasks; i++) 
+	{
+        printf("%d. %s\n", soldier.tasks[i].number, soldier.tasks[i].description);
+    }
+}
+int validateRank(int rank) 
+{
+    if (rank < 1 || rank > 6) 
+	{
+        return 0;
+    }
+    return 1;
+}
+int main() 
+{
+    int i,j,numSoldiers;
+    printf("Enter the number of soldiers: ");
+    scanf("%d", &numSoldiers);
+    for (i = 0; i < numSoldiers; i++) 
+	{
+        struct Soldier recruit;
+        printf("Enter recruit's name: ");
+        scanf("%s", recruit.name);
+        printf("Enter recruit's rank (4 for Lieutenant, 5 for Major, 6 for Colonel, etc.): ");
+        scanf("%d", &recruit.rank);
+        if (!validateRank(recruit.rank)) {
+            printf("Invalid rank for soldier %s! Exiting the program.\n", recruit.name);
+            exit(1);
+        }
+        printf("Enter the number of tasks for %s: ", recruit.name);
+        scanf("%d", &recruit.numTasks);
+        recruit.tasks = (struct Task *)malloc(recruit.numTasks * sizeof(struct Task));
+        for (j = 0; j < recruit.numTasks; j++) {
+            printf("Enter task %d description: ", j + 1);
+            scanf("%s", recruit.tasks[j].description);
+            recruit.tasks[j].number = j + 1;
+        }
+        provideTasks(recruit);
+        free(recruit.tasks);
+    }
+}
