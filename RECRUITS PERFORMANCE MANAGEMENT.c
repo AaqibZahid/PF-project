@@ -3,7 +3,7 @@
 #include<string.h>
 #include<time.h>
 #include<Windows.h>
-int main(){
+int RecPerMan(){
 	char rank;
 
     printf("Enter your rank (M for Major, C for Colonel, L for Lieutenant): ");
@@ -51,4 +51,8 @@ int main(){
         
     }
     return 0;
+}
+
+void main(){
+	RecPerMan();
 }
