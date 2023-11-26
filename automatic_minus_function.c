@@ -7,6 +7,8 @@
 #include <string.h>
 
 int main() {
+    system("cls");
+    int count = 1;
     int provisions[2] = {50 , 100}; 
     srand(time(NULL));
     while (provisions[0] > 0 && provisions[1] > 0)
@@ -18,10 +20,15 @@ int main() {
         {
             provisions[0] = 0;
         }
+        if (provisions[1] < 0)
+        {
+            provisions[1] = 0;
+        }
         
         
-        printf("Provisions Remaining : \nTanks: %d \nPlanes: %d\n", provisions[0], provisions[1]);
+        printf("Provisions Remaining Day %d : \nTanks: %d \nPlanes: %d\n",count, provisions[0], provisions[1]);
         sleep(1);
+        count++; 
     }
     printf("All provisions are gone\n");
     printf("Base has been captured\n");
