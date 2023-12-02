@@ -44,12 +44,12 @@ int main()
     sleep(2);
     while (army1.planes > 0 || army1.soldiers > 0 || army1.tanks > 0)
     {
-        int num = rand() % 50;
-        int num1 = rand() % 50 ;
-        int num2 = rand() % 300;
+        int num = rand() % 50+1;
+        int num1 = rand() % 50 +1;
+        int num2 = rand() % 300+1;
         //Winning condition
         int winning = rand() % 100 + 1;
-        if(winning > 85)
+        if(winning > 90)
         {
             printf("\n\nArmy has won the war on Day %d\n", count);
             printf("The Remaining items are:\nTanks: %d\nPlanes: %d\nSoldiers: %d\n", army1.tanks, army1.planes, army1.soldiers);
