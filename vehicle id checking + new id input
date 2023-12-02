@@ -1,0 +1,80 @@
+#include <stdio.h>
+
+struct Vehicle {
+    int id;
+    int car_id;
+    char name[20];
+};
+
+int main() {
+    int choice;
+    FILE *fptr = fopen("vehicles.txt", "a+");
+
+    if (fptr == NULL) {
+        printf("Error opening file!");
+        return 1;
+    }
+
+    do {
+        printf("\n1. Add a new vehicle");
+        printf("\n2. Check a vehicle by ID");
+        printf("\n0. Exit");
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                addVehicle(fptr);
+                break;
+            case 2:
+                checkVehicleByID(fptr);
+                break;
+            case 0:
+                printf("Exiting the program.\n");
+                break;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+
+    } while (choice != 0);
+
+    fclose(fptr);
+    return 0;
+}
+
+void addVehicle(FILE *fptr) {
+    struct Vehicle newVehicle;
+
+    printf("\nEnter vehicle ID: ");
+    scanf("%d", &newVehicle.id);
+
+    printf("Enter vehicle name: ");
+    scanf("%s", newVehicle.name);
+
+    printf("Enter car ID: ");
+    scanf("%d", &newVehicle.car_id);
+
+    fprintf(fptr, "%s %d\n", newVehicle.name, newVehicle.car_id);
+    printf("Vehicle added successfully.\n");
+}
+
+void checkVehicleByID(FILE *fptr) {
+    int id;
+    char name[20];
+    int car_id;
+
+    printf("Enter ID to check: ");
+    scanf("%d", &id);
+
+    rewind(fptr);
+
+    while (fscanf(fptr, "%s %d", name, &car_id) == 2) {
+        if (id == car_id) {
+            printf("\nID matched!");
+            printf("\n%s %d\n", name, car_id);
+            return;
+        }
+    }
+
+    printf("\nNo vehicle found with the given ID.\n");
+}
