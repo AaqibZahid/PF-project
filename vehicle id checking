@@ -1,0 +1,19 @@
+#include <stdio.h>
+void main()
+{
+	int id;
+	int car_id;
+	char name[20];
+	FILE *fptr=fopen("vehicles.txt","r");
+	printf("Enter id: ");
+	scanf("%d",&id);
+	while(fscanf(fptr,"%s %d",name,&car_id)!=NULL)
+	{
+		if(id==car_id)
+		{
+			printf("\nID matched!");
+			printf("\n%s %d",name, car_id);
+		}
+	}
+	fclose(fptr);
+}
