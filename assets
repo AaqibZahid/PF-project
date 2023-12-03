@@ -1,0 +1,77 @@
+#include <stdio.h>
+struct Asset 
+{
+    int id;
+    char name[50];
+    float value;
+};
+void addAsset(FILE *fptr);
+void checkAssetHistory(FILE *fptr);
+int main() {
+    int choice;
+    FILE *fptr = fopen("assets.txt", "a+");
+    if (fptr == NULL) {
+        printf("Error opening file!");
+        return 1;
+    }
+    do {
+        printf("\n1. Add a new asset");
+        printf("\n2. Check asset history by ID");
+        printf("\n0. Exit");
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+        switch (choice) 
+		{
+            case 1:
+                addAsset(fptr);
+                break;
+            case 2:
+                checkAssetHistory(fptr);
+                break;
+            case 0:
+                printf("Exiting the program.\n");
+                break;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    } while (choice != 0);
+
+    fclose(fptr);
+    return 0;
+}
+void addAsset(FILE *fptr) 
+{
+    struct Asset newAsset;
+    printf("\nEnter asset ID: ");
+    scanf("%d", &newAsset.id);
+    printf("Enter asset name: ");
+    scanf("%s", newAsset.name);
+    printf("Enter asset value: ");
+    scanf("%f", &newAsset.value);
+    fprintf(fptr, "%d %s %.2f\n", newAsset.id, newAsset.name, newAsset.value);
+    printf("Asset added successfully.\n");
+}
+void checkAssetHistory(FILE *fptr) 
+{
+    int id;
+    char name[50];
+    float value;
+    int found = 0;
+    printf("Enter asset ID to check history: ");
+    scanf("%d", &id);
+    rewind(fptr);
+    while (fscanf(fptr, "%d %s %f", &id, name, &value) == 3) 
+	{
+        if (id == id) 
+		{
+            found = 1;
+            printf("\nAsset ID matched!");
+            printf("\n%d %s %.2f\n", id, name, value);
+            break;
+        }
+    }
+    if (!found) 
+	{
+        printf("\nNo asset found with the given ID.\n");
+    }
+}
