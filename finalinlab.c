@@ -6,7 +6,6 @@
 #include <Windows.h>
 #include <unistd.h>
 #include <ctype.h>
-#include <math.h>
 #define USERNUM 100
 // DEFINING STRUCTURES
 struct Task
@@ -1007,7 +1006,7 @@ void checkVehicleByID(FILE *fptr)
 }
 void beap()
 {
-    int count = 05;
+    int count = 10;
 repeat:
     Beep(1000, 500);
     count--;
@@ -1238,6 +1237,7 @@ int main()
                 else
                 {
                     printf("\nUnauthorized Access Alert!!! \nSystem Criticality Compromised!!!\n");
+                    beap();
                     exit(1);
                 }
             }
